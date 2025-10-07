@@ -1,4 +1,4 @@
-# .dotfiles – Neovim Configurations (Windows branch)
+# .dotfiles – Neovim Configurations (nvim branch)
 
 Welcome to the **nvim** branch of my `.dotfiles` repository! This branch contains my Neovim configuration files, plugins, and custom scripts for a highly productive and personalized Vim experience.
 
