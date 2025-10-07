@@ -42,7 +42,7 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     { desc = "Replace the word under cursor" })
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make current file executable" })
+
 
 vim.keymap.set(
     "n",
@@ -52,7 +52,7 @@ vim.keymap.set(
 )
 
 -- vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
-vim.keymap.set("n", "<leader>vc", "<cmd>Ex ~/.config/nvim<CR>", { desc = "Open nvim config directory" })
+vim.keymap.set("n", "<leader>vc", "<cmd>Ex " .. vim.fn.stdpath("config") .. "<CR>", { desc = "Open nvim config directory" })
 
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Happy Easter" });
 
