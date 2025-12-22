@@ -24,7 +24,11 @@
   "mason-tool-installer.nvim": { "branch": "main", "commit": "517ef5994ef9d6b738322664d5fdd948f0fdeb46" },
   "mason.nvim": { "branch": "main", "commit": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800" },
   "mini.icons": { "branch": "main", "commit": "ff2e4f1d29f659cc2bad0f9256f2f6195c6b2428" },
+<<<<<<< Updated upstream
   "mini.nvim": { "branch": "main", "commit": "6170f606fbdb94bf461635c47962f61dceffe496" },
+=======
+  "mini.nvim": { "branch": "main", "commit": "6acb62618e2e7f1bf4f2e96e77a562ec80696f5e" },
+>>>>>>> Stashed changes
   "neo-tree.nvim": { "branch": "v3.x", "commit": "f3df514fff2bdd4318127c40470984137f87b62e" },
   "neotest": { "branch": "master", "commit": "deadfb1af5ce458742671ad3a013acb9a6b41178" },
   "neotest-plenary": { "branch": "master", "commit": "3523adcf9ffaad1911960c5813b0136c1b63a2ec" },
@@ -39,7 +43,11 @@
   "nvim-ts-autotag": { "branch": "main", "commit": "c4ca798ab95b316a768d51eaaaee48f64a4a46bc" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f" },
   "nvim-web-devicons": { "branch": "master", "commit": "6788013bb9cb784e606ada44206b0e755e4323d7" },
+<<<<<<< Updated upstream
   "oil.nvim": { "branch": "master", "commit": "756dec855b4811f2d27f067a3aca477f368d99f5" },
+=======
+  "oil.nvim": { "branch": "master", "commit": "3b249b71957ee35d5adbfb21f77992809a4c4683" },
+>>>>>>> Stashed changes
   "plenary": { "branch": "master", "commit": "b9fd5226c2f76c951fc8ed5923d85e4de065e509" },
   "plenary.nvim": { "branch": "master", "commit": "b9fd5226c2f76c951fc8ed5923d85e4de065e509" },
   "refactoring.nvim": { "branch": "master", "commit": "6784b54587e6d8a6b9ea199318512170ffb9e418" },
