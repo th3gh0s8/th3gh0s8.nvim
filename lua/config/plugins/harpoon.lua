@@ -32,26 +32,26 @@ return {
         end, { desc = "Harpoon: Go to file 6" })
 
         -- Alternative navigation with leader key for consistency
-        vim.keymap.set("n", "<leader>1", function()
+        vim.keymap.set("n", "<A-1>1", function()
             ui.nav_file(1)
         end, { desc = "Harpoon: Go to file 1" })
-        vim.keymap.set("n", "<leader>2", function()
+        vim.keymap.set("n", "<A-2>2", function()
             ui.nav_file(2)
         end, { desc = "Harpoon: Go to file 2" })
-        vim.keymap.set("n", "<leader>3", function()
+        vim.keymap.set("n", "<A-3>3", function()
             ui.nav_file(3)
         end, { desc = "Harpoon: Go to file 3" })
-        vim.keymap.set("n", "<leader>4", function()
+        vim.keymap.set("n", "<A-4>4", function()
             ui.nav_file(4)
         end, { desc = "Harpoon: Go to file 4" })
-        vim.keymap.set("n", "<leader>5", function()
+        vim.keymap.set("n", "<A-5>5", function()
             ui.nav_file(5)
         end, { desc = "Harpoon: Go to file 5" })
-        vim.keymap.set("n", "<leader>6", function()
+        vim.keymap.set("n", "<A-6>6", function()
             ui.nav_file(6)
         end, { desc = "Harpoon: Go to file 6" })
 
-        -- "Replace" mark at slot 1-4 by removing it and adding the current file.
+        -- "Replace" mark at slot 1-6 by removing it and adding the current file.
         -- Note: This will append the current file to the end of the list, not keep it at the same slot.
         vim.keymap.set("n", "<leader><A-1>", function()
             mark.rm_file(1)
