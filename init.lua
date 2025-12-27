@@ -3,6 +3,7 @@ require("remap")
 require("config.lazy")
 
 vim.o.guifont = "BigBlueTerm437 Nerd Font:h12"
+vim.opt.clipboard = "unnamedplus"
 -- DO.not
 -- DO NOT INCLUDE THIS
 
