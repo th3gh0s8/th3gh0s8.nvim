@@ -4,7 +4,7 @@ set mouse=a
 " Set Editor Font
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
-    GuiFont Fira Code:h12
+    GuiFont BigBlueTerm437 Nerd Font:h12
 endif
 
 " Disable GUI Tabline
@@ -12,9 +12,9 @@ if exists(':GuiTabline')
     GuiTabline 0
 endif
 
-" Enable GUI Popupmenu
+" Disable GUI Popupmenu
 if exists(':GuiPopupmenu')
-    GuiPopupmenu 1
+    GuiPopupmenu 0
 endif
 
 " Enable GUI ScrollBar
@@ -27,6 +27,3 @@ nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
 inoremap <silent><RightMouse> <Esc>:call GuiShowContextMenu()<CR>
 xnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
 snoremap <silent><RightMouse> <C-G>:call GuiShowContextMenu()<CR>gv
-
-" Set Colorscheme
-colorscheme tokyonight
