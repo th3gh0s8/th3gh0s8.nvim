@@ -4,6 +4,13 @@ require("config.lazy")
 
 vim.o.guifont = "BigBlueTerm437 Nerd Font:h12"
 vim.opt.clipboard = "unnamedplus"
+
+vim.g.neovide_cursor_vfx_mode = "railgun"
+vim.g.neovide_cursor_trail_size = 1.0
+vim.g.neovide_cursor_antialiasing = true
+vim.g.neovide_cursor_animate_in_insert_mode = true
+vim.g.neovide_cursor_animate_command_line = true
+vim.g.neovide_cursor_smooth_blink = false
 -- DO.not
 -- DO NOT INCLUDE THIS
 
