@@ -37,7 +37,6 @@ Welcome to the **nvim** branch of my `.dotfiles` repository! This branch contain
    
    git clone --branch windows https://github.com/th3gh0s8/th3gh0s8.nvim.git $env:LOCALAPPDATA\nvim
 
-
    ```
 
 2. **Symlink config files to your Neovim folder:**
