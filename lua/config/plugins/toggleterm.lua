@@ -8,7 +8,7 @@ return {
         shade_terminals = true,
         direction = "horizontal",      -- Split direction (horizontal, vertical, or float)
         close_on_exit = true,
-        shell = vim.o.shell,
+        shell = 'pwsh',
       }
     end
 }
