@@ -31,8 +31,39 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to black hol
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exits Insert mode to Normal mode" })
 
 vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode" })
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>",
-    { desc = "Open tmux-sessionizer in new tmux window" })
+
+vim.keymap.set(
+    "n",
+    "<C-f>",
+    "<cmd>silent !tmux neww tmux-sessionizer<CR>",
+    { desc = "Open tmux-sessionizer in new tmux window" }
+)
+
+vim.keymap.set(
+    "n",
+    "<M-h>",
+    "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>",
+    { desc = "Open tmux-sessionizer in new tmux window" }
+)
+vim.keymap.set(
+    "n",
+    "<M-t>",
+    "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>",
+    { desc = "Open tmux-sessionizer in new tmux window" }
+)
+vim.keymap.set(
+    "n",
+    "<M-n>",
+    "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>",
+    { desc = "Open tmux-sessionizer in new tmux window" }
+)
+vim.keymap.set(
+    "n",
+    "<M-s>",
+    "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>",
+    { desc = "Open tmux-sessionizer in new tmux window" }
+)
+
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format the current buffer" })
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix entry" })
@@ -40,8 +71,12 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix ent
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location list entry" })
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location list entry" })
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = "Replace the word under cursor" })
+vim.keymap.set(
+    "n",
+    "<leader>s",
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "Replace the word under cursor" }
+)
 
 -- Manual completion trigger for blink.cmp using a Windows-friendly key combination
 vim.keymap.set("i", "<C-j>", function()
@@ -51,9 +86,6 @@ vim.keymap.set("i", "<C-j>", function()
     end
 end, { desc = "Trigger completion" })
 
-
-
-
 vim.keymap.set(
     "n",
     "<leader>ee",
@@ -62,9 +94,14 @@ vim.keymap.set(
 )
 
 -- vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
-vim.keymap.set("n", "<leader>vc", "<cmd>Ex " .. vim.fn.stdpath("config") .. "<CR>", { desc = "Open nvim config directory" })
+vim.keymap.set(
+    "n",
+    "<leader>vc",
+    "<cmd>Ex " .. vim.fn.stdpath("config") .. "<CR>",
+    { desc = "Open nvim config directory" }
+)
 
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Happy Easter" });
+vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Happy Easter" })
 
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
