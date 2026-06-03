@@ -10,14 +10,23 @@ return {
         "j-hui/fidget.nvim",
         "onsails/lspkind.nvim",
         { "antosha417/nvim-lsp-file-operations", config = true },
-        -- Add any other LSP-related plugins you use here
     },
     config = function()
         local lspconfig = require("lspconfig")
         local mason_lspconfig = require("mason-lspconfig")
         local mason_tool_installer = require("mason-tool-installer")
         local lspkind = require("lspkind")
-        local capabilities = require("blink.cmp").get_lsp_capabilities()
+        
+        -- Safe blink.cmp initialization
+        local capabilities
+        local ok, blink_cmp = pcall(require, "blink.cmp")
+        if ok then
+            capabilities = blink_cmp.get_lsp_capabilities()
+        else
+            vim.notify("blink.cmp failed to load, using default capabilities", vim.log.levels.WARN)
+            capabilities = {}
+        end
+        
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
@@ -71,7 +80,7 @@ return {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
-                                runtime = { version = "Lua 5.1" },
+                                runtime = { version = "LuaJIT" },
                                 diagnostics = {
                                     globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
                                 },
@@ -97,15 +106,31 @@ return {
             },
         })
 
+        -- Format on save with condition to avoid formatting on large files or certain filetypes
         vim.api.nvim_create_autocmd("LspAttach", {
             callback = function(args)
                 local c = vim.lsp.get_client_by_id(args.data.client_id)
                 if not c then
                     return
                 end
+                
+                -- Skip formatting for certain filetypes
+                local skip_format_filetypes = { "markdown", "text" }
+                local buf_ft = vim.api.nvim_buf_get_option(args.buf, "filetype")
+                
+                if vim.tbl_contains(skip_format_filetypes, buf_ft) then
+                    return
+                end
+                
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     buffer = args.buf,
                     callback = function()
+                        -- Prevent formatting on very large files (> 100KB)
+                        local file_size = vim.fn.getfsize(vim.api.nvim_buf_get_name(args.buf))
+                        if file_size > 100000 then
+                            return
+                        end
+                        
                         vim.lsp.buf.format({ bufnr = args.buf, id = c.id })
                     end,
                 })
@@ -113,22 +138,21 @@ return {
         })
 
         -- Blink.cmp setup (uses luasnip for snippets and friendly-snippets for snippet collection)
-        require("blink.cmp").setup({
-            snippet = {
-                expand = function(args)
-                    require("luasnip").lsp_expand(args.body)
-                end,
-            },
-            keymap = { preset = "default" },
-            appearance = {
-                use_nvim_cmp_as_default = false,
-                nerd_font_variant = "mono",
-            },
-            signature = { enabled = true },
-            -- Disable autocompletion popup if you want manual only:
-            -- completion = { autocomplete = false },
-            -- Add more blink.cmp options here as needed
-        })
+        if ok then
+            require("blink.cmp").setup({
+                snippet = {
+                    expand = function(args)
+                        require("luasnip").lsp_expand(args.body)
+                    end,
+                },
+                keymap = { preset = "default" },
+                appearance = {
+                    use_nvim_cmp_as_default = false,
+                    nerd_font_variant = "mono",
+                },
+                signature = { enabled = true },
+            })
+        end
 
         vim.diagnostic.config({
             virtual_text = true,
@@ -145,6 +169,7 @@ return {
                 prefix = "",
             },
         })
+        
         mason_tool_installer.setup({
             ensure_installed = {
                 "prettier",
