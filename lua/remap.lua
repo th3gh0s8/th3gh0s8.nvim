@@ -39,30 +39,21 @@ vim.keymap.set(
     { desc = "Tmux: Open sessionizer" }
 )
 
-vim.keymap.set(
-    "n",
-    "<M-h>",
-    "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>",
-    { desc = "Tmux: Open session 0" }
-)
-vim.keymap.set(
-    "n",
-    "<M-t>",
-    "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>",
-    { desc = "Tmux: Open session 1" }
-)
-vim.keymap.set(
-    "n",
-    "<M-n>",
-    "<cmd>silent !tmux neww tmux-sessionizer -s 2<CR>",
-    { desc = "Tmux: Open session 2" }
-)
-vim.keymap.set(
-    "n",
-    "<M-s>",
-    "<cmd>silent !tmux neww tmux-sessionizer -s 3<CR>",
-    { desc = "Tmux: Open session 3" }
-)
+-- Tmux session keybindings with guard to check if tmux is available
+local function safe_tmux_cmd(session_id)
+    return function()
+        if vim.fn.executable("tmux") == 0 then
+            vim.notify("tmux is not installed or not in PATH", vim.log.levels.WARN)
+            return
+        end
+        vim.fn.system({ "tmux", "neww", "tmux-sessionizer", "-s", tostring(session_id) })
+    end
+end
+
+vim.keymap.set("n", "<M-h>", safe_tmux_cmd(0), { desc = "Tmux: Open session 0" })
+vim.keymap.set("n", "<M-t>", safe_tmux_cmd(1), { desc = "Tmux: Open session 1" })
+vim.keymap.set("n", "<M-n>", safe_tmux_cmd(2), { desc = "Tmux: Open session 2" })
+vim.keymap.set("n", "<M-s>", safe_tmux_cmd(3), { desc = "Tmux: Open session 3" })
 
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "LSP: Format buffer" })
 
@@ -78,11 +69,13 @@ vim.keymap.set(
     { desc = "Replace word under cursor (global)" }
 )
 
--- Manual completion trigger for blink.cmp using a Windows-friendly key combination
-vim.keymap.set("i", "<C-j>", function()
+-- Manual completion trigger for blink.cmp using Space in Insert mode
+vim.keymap.set("i", "<C-Space>", function()
     local ok, blink_cmp = pcall(require, "blink.cmp")
     if ok then
         blink_cmp.show()
+    else
+        vim.notify("blink.cmp not loaded", vim.log.levels.WARN)
     end
 end, { desc = "Blink: Trigger completion" })
 
@@ -93,7 +86,6 @@ vim.keymap.set(
     { desc = "Go: Insert error check" }
 )
 
--- vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
 vim.keymap.set(
     "n",
     "<leader>vc",
@@ -130,3 +122,4 @@ vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Tab: Previous" })
 vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Tab: Move buffer to new" })
 
 vim.keymap.set("n", "<leader>ts", "<cmd>PlenaryBustedFile %<CR>", { desc = "Plenary: Run test" })
+
