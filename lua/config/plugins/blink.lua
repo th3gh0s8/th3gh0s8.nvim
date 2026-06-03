@@ -1,39 +1,60 @@
 return {
     "saghen/blink.cmp",
-    build = "cargo build --release", -- builds the Rust native extension
-    version = "*",                   -- you can pin to "1.*" for stability if you want
+    build = "cargo build --release",
+    version = "*",
+    dependencies = {
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
+        "hrsh7th/cmp-nvim-lsp",
+    },
     opts = {
-        fuzzy = {
-            implementation = "prefer_rust_with_warning", -- use Rust if available, fallback to Lua with warning
-            -- Optionally, force a prebuilt version if you can't build:
-            -- prebuilt_binaries = { force_version = "1.0.0" },
+        keymap = {
+            preset = "default",
+            ["<Tab>"] = {
+                function(cmp)
+                    if cmp.snippet_active() then
+                        return cmp.snippet_forward()
+                    else
+                        return cmp.select_next()
+                    end
+                end,
+                "fallback",
+            },
+            ["<S-Tab>"] = {
+                function(cmp)
+                    if cmp.snippet_active() then
+                        return cmp.snippet_backward()
+                    else
+                        return cmp.select_prev()
+                    end
+                end,
+                "fallback",
+            },
         },
 
-        -- You can add more options here if needed
-        keymap = { preset = 'default' },
+        snippets = {
+            preset = "luasnip",
+        },
+
+        fuzzy = {
+            implementation = "prefer_rust_with_warning",
+        },
 
         appearance = {
-            -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- Adjusts spacing to ensure icons are aligned
-            use_nvim_cmp_as_default = false, -- disables nvim-cmp emulation mode
-            nerd_font_variant = 'mono'
+            use_nvim_cmp_as_default = false,
+            nerd_font_variant = "mono",
         },
-        signature = { enabled = true }
-    },
-    -- Optionally, dependencies if you use cmp:
-    dependencies = {
-        "hrsh7th/nvim-cmp",
-        'rafamadriz/friendly-snippets',
-    },
-}
 
---[[ return {
-    {
-        "saghen/blink.cmp",
-        build = "cargo build --release",
-        opts = {
-            -- fuzzy = { implementation = "lua" }
-            fuzzy = { implementation = "prefer_rust_with_warning" }
+        signature = { enabled = true },
+
+        sources = {
+            default = { "lsp", "path", "snippets", "buffer" },
         },
     },
-} ]]
+    config = function(_, opts)
+        require("blink.cmp").setup(opts)
+
+        -- Load VSCode-style snippets
+        require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+}
