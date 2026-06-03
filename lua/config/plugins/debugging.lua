@@ -39,7 +39,5 @@ return {
         vim.keymap.set("n", "<leader>du", dap.step_out, { desc = "Debug: Step out" })
         vim.keymap.set("n", "<leader>db", dap.step_back, { desc = "Debug: Step back" })
         vim.keymap.set("n", "<leader>dr", dap.restart, { desc = "Debug: Restart" })
-
-        dapui.setup()
     end,
 }
