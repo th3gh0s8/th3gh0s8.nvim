@@ -26,7 +26,7 @@ local augroup = vim.api.nvim_create_augroup
 local myGroup = augroup("th3gh0s8", {})
 
 local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup("HighlightYank", {})
+--local yank_group = augroup("HighlightYank", {})
 
 -- Reloads a Lua module so subsequent `require()` calls load its updated code.
 -- @param name The module name as passed to `require` (e.g. "my.plugin.module").
