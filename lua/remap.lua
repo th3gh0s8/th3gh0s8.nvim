@@ -44,7 +44,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
     { desc = "Replace the word under cursor" })
 
 -- Manual completion trigger for blink.cmp using a Windows-friendly key combination
-vim.keymap.set("i", "<C-j>", function()
+vim.keymap.set("i", "<C-Space>", function()
     local ok, blink_cmp = pcall(require, "blink.cmp")
     if ok then
         blink_cmp.show()
