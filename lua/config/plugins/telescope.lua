@@ -6,6 +6,8 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        "nvim-tree/nvim-web-devicons",
+        "folke/todo-comments.nvim",
     },
 
     config = function()
@@ -40,5 +42,8 @@ return {
                 cwd = vim.fn.stdpath("config")
             })
         end, { desc = "Telescope: Edit config" })
+
+        -- Live multi-grep integration
+        require "config.telescope.multigrep".setup()
     end,
 }
