@@ -86,10 +86,11 @@ autocmd("LspAttach", {
             vim.lsp.buf.signature_help()
         end, opts)
         vim.keymap.set("n", "[d", function()
-            vim.diagnostic.goto_next()
+            vim.diagnostic.jump({ count = 1 })
         end, opts)
+
         vim.keymap.set("n", "]d", function()
-            vim.diagnostic.goto_prev()
+            vim.diagnostic.jump({ count = -1 })
         end, opts)
     end,
 })
