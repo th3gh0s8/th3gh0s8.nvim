@@ -11,16 +11,6 @@ vim.g.neovide_cursor_antialiasing = true
 vim.g.neovide_cursor_animate_in_insert_mode = true
 vim.g.neovide_cursor_animate_command_line = true
 vim.g.neovide_cursor_smooth_blink = false
--- DO.not
--- DO NOT INCLUDE THIS
-
--- If i want to keep doing lsp debugging
--- function restart_htmx_lsp()
---     require("lsp-debug-tools").restart({ expected = {}, name = "htmx-lsp", cmd = { "htmx-lsp", "--level", "DEBUG" }, root_dir = vim.loop.cwd(), });
--- end
-
--- DO NOT INCLUDE THIS
--- DO.not
 
 local augroup = vim.api.nvim_create_augroup
 local myGroup = augroup("th3gh0s8", {})
@@ -102,15 +92,3 @@ vim.g.netrw_browse_split = 0
 vim.opt.compatible = false    -- Equivalent to 'set nocompatible'
 vim.cmd("filetype plugin on") -- Enable filetype plugins
 vim.cmd("syntax on")          -- Enable syntax highlighting
-
--- vim.opt.clipboard = "unnamedplus"
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking (copying) text",
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
