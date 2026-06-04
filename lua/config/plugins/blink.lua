@@ -108,17 +108,3 @@ return {
         'rafamadriz/friendly-snippets',
     },
 } ]]
-
-        signature = { enabled = true },
-
-        sources = {
-            default = { "lsp", "path", "snippets", "buffer" },
-        },
-    },
-    config = function(_, opts)
-        require("blink.cmp").setup(opts)
-
-        -- Load VSCode-style snippets
-        require("luasnip.loaders.from_vscode").lazy_load()
-    end,
-}
