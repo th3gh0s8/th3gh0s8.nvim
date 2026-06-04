@@ -20,12 +20,11 @@ return {
                     vim.cmd.Git("push")
                 end, vim.tbl_extend("force", opts, { desc = "Git: Push" }))
 
-                -- rebase always
                 vim.keymap.set("n", "<leader>P", function()
                     vim.cmd.Git({ "pull", "--rebase" })
                 end, vim.tbl_extend("force", opts, { desc = "Git: Pull --rebase" }))
 
-                -- NOTE: It allows me to easily set the branch i am pushing and any tracking
+                -- NOTE: It allows us to set the branch i am pushing and any tracking
                 -- needed if i did not set the branch up correctly
                 vim.keymap.set(
                     "n",
@@ -36,7 +35,7 @@ return {
             end,
         })
 
-        vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>")
-        vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
+        vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>", { desc = "Git: Diffget 2" })
+        vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>", { desc = "Git: Diffget 3" })
     end,
 }

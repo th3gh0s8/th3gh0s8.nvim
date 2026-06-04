@@ -1,31 +1,31 @@
 return {
-    {
-        "nvim-neotest/neotest",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "antoinemadec/FixCursorHold.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "marilari88/neotest-vitest",
-            "nvim-neotest/neotest-plenary",
-            "nvim-neotest/nvim-nio",
-        },
-        config = function()
-            local neotest = require("neotest")
-            neotest.setup({
-                adapters = {
-                    require("neotest-vitest"),
-                    require("neotest-plenary"), --[[.setup({
-                        -- this is my standard location for minimal vim rc
-                        -- in all my projects
-                        --min_init = "./scripts/tests/minimal.vim",
-                    }),]]
-                }
-            })
-
-            vim.keymap.set("n", "<leader>tc", function()
-                neotest.run.run()
-            end)
-        end,
+    "nvim-neotest/neotest",
+    dependencies = {
+        "nvim-neotest/nvim-nio",
+        "nvim-lua/plenary.nvim",
+        "antoinemadec/FixCursorHold.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-neotest/neotest-go",
+        "sidlatau/neotest-dart",
+        -- add any other adapters here
     },
-}
+    config = function()
+        local neotest = require("neotest")
+        neotest.setup({
+            adapters = {
+                require("neotest-go"),
+                require("neotest-dart")({
+                    command = "flutter", -- or "dart"
+                    use_lsp = true,
+                    custom_configurations = {
+                        -- any custom configurations here
+                    },
+                }),
+            },
+        })
 
+        vim.keymap.set("n", "<leader>tc", function()
+            neotest.run.run()
+        end, { desc = "Neotest: Run current" })
+    end,
+}

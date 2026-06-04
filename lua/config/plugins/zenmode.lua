@@ -1,37 +1,21 @@
-
 return {
     "folke/zen-mode.nvim",
     config = function()
         vim.keymap.set("n", "<leader>zz", function()
-            require("zen-mode").setup {
+            require("zen-mode").toggle({
                 window = {
-                    width = 90,
-                    options = { }
-                },
-            }
-            require("zen-mode").toggle()
-            vim.wo.wrap = false
-            vim.wo.number = true
-            vim.wo.rnu = true
-            ColorMyPencils()
-        end)
-
+                    width = 0.85 -- width will be 85% of the editor width
+                }
+            })
+        end, { desc = "ZenMode: Toggle" })
 
         vim.keymap.set("n", "<leader>zZ", function()
-            require("zen-mode").setup {
+            require("zen-mode").toggle({
                 window = {
-                    width = 80,
-                    options = { }
+                    width = 1,
+                    options = {}
                 },
-            }
-            require("zen-mode").toggle()
-            vim.wo.wrap = false
-            vim.wo.number = false
-            vim.wo.rnu = false
-            vim.opt.colorcolumn = "0"
-            ColorMyPencils()
-        end)
+            })
+        end, { desc = "ZenMode: Toggle (Full)" })
     end
 }
-
-
