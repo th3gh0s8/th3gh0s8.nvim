@@ -61,37 +61,46 @@ autocmd("LspAttach", {
     group = myGroup,
     callback = function(e)
         local opts = { buffer = e.buf }
+
         vim.keymap.set("n", "gd", function()
             vim.lsp.buf.definition()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Go to Definition" }))
+
         vim.keymap.set("n", "K", function()
             vim.lsp.buf.hover()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Hover Documentation" }))
+
         vim.keymap.set("n", "<leader>vws", function()
             vim.lsp.buf.workspace_symbol()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Workspace Symbols" }))
+
         vim.keymap.set("n", "<leader>vd", function()
             vim.diagnostic.open_float()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "Diagnostics: Show Float" }))
+
         vim.keymap.set("n", "<leader>vca", function()
             vim.lsp.buf.code_action()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Code Actions" }))
+
         vim.keymap.set("n", "<leader>vrr", function()
             vim.lsp.buf.references()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Find References" }))
+
         vim.keymap.set("n", "<leader>vrn", function()
             vim.lsp.buf.rename()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Rename Symbol" }))
+
         vim.keymap.set("i", "<C-h>", function()
             vim.lsp.buf.signature_help()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Signature Help" }))
+
         vim.keymap.set("n", "[d", function()
             vim.diagnostic.jump({ count = 1 })
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "Diagnostics: Next" }))
 
         vim.keymap.set("n", "]d", function()
             vim.diagnostic.jump({ count = -1 })
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "Diagnostics: Previous" }))
     end,
 })
 
