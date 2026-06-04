@@ -1,7 +1,7 @@
 -- lua/custom/plugins/mini.lua
 return {
-    'echasnovski/mini.nvim',
+    "echasnovski/mini.nvim",
     config = function()
-        require('mini.icons').setup()
-    end
+        require("mini.icons").setup()
+    end,
 }

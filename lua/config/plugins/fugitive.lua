@@ -3,11 +3,11 @@ return {
     config = function()
         vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Git: Status" })
 
-        local Fugitive_group = vim.api.nvim_create_augroup("Fugitive_group", {})
+        local gh0s8_Fugitives = vim.api.nvim_create_augroup("gh0s8_Fugitives", {})
 
         local autocmd = vim.api.nvim_create_autocmd
         autocmd("BufWinEnter", {
-            group = Fugitive_group,
+            group = gh0s8_Fugitives,
             pattern = "*",
             callback = function()
                 if vim.bo.ft ~= "fugitive" then
@@ -26,7 +26,12 @@ return {
 
                 -- NOTE: It allows us to set the branch i am pushing and any tracking
                 -- needed if i did not set the branch up correctly
-                vim.keymap.set("n", "<leader>t", ":Git push -u origin ", vim.tbl_extend("force", opts, { desc = "Git: Push -u origin ..." }));
+                vim.keymap.set(
+                    "n",
+                    "<leader>t",
+                    ":Git push -u origin ",
+                    vim.tbl_extend("force", opts, { desc = "Git: Push -u origin ..." })
+                )
             end,
         })
 

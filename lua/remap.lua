@@ -30,7 +30,31 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to black hol
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exit Insert mode (Esc alternative)" })
 
-vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode (Q)" })
+vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode" })
+vim.keymap.set(
+    "n",
+    "<C-f>",
+    "<cmd>silent !tmux neww tmux-sessionizer<CR>",
+    { desc = "Open tmux-sessionizer in new tmux window" }
+)
+
+-- Tmux session keybindings with guard to check if tmux is available
+local function safe_tmux_cmd(session_id)
+    return function()
+        if vim.fn.executable("tmux") == 0 then
+            vim.notify("tmux is not installed or not in PATH", vim.log.levels.WARN)
+            return
+        end
+        vim.fn.system({ "tmux", "neww", "tmux-sessionizer", "-s", tostring(session_id) })
+    end
+end
+
+vim.keymap.set("n", "<M-h>", safe_tmux_cmd(0), { desc = "Tmux: Open session 0" })
+vim.keymap.set("n", "<M-t>", safe_tmux_cmd(1), { desc = "Tmux: Open session 1" })
+vim.keymap.set("n", "<M-n>", safe_tmux_cmd(2), { desc = "Tmux: Open session 2" })
+vim.keymap.set("n", "<M-s>", safe_tmux_cmd(3), { desc = "Tmux: Open session 3" })
+
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format the current buffer" })
 
 vim.keymap.set(
     "n",
@@ -50,26 +74,14 @@ local function safe_tmux_cmd(session_id)
     end
 end
 
-vim.keymap.set("n", "<M-h>", safe_tmux_cmd(0), { desc = "Tmux: Open session 0" })
-vim.keymap.set("n", "<M-t>", safe_tmux_cmd(1), { desc = "Tmux: Open session 1" })
-vim.keymap.set("n", "<M-n>", safe_tmux_cmd(2), { desc = "Tmux: Open session 2" })
-vim.keymap.set("n", "<M-s>", safe_tmux_cmd(3), { desc = "Tmux: Open session 3" })
-
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "LSP: Format buffer" })
-
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Quickfix: Next" })
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Quickfix: Previous" })
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Location List: Next" })
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Location List: Previous" })
-
 vim.keymap.set(
     "n",
     "<leader>s",
     [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = "Replace word under cursor (global)" }
+    { desc = "Replace the word under cursor" }
 )
 
--- Manual completion trigger for blink.cmp using Space in Insert mode
+-- Manual completion trigger for blink.cmp using a Windows-friendly key combination
 vim.keymap.set("i", "<C-Space>", function()
     local ok, blink_cmp = pcall(require, "blink.cmp")
     if ok then
@@ -77,7 +89,7 @@ vim.keymap.set("i", "<C-Space>", function()
     else
         vim.notify("blink.cmp not loaded", vim.log.levels.WARN)
     end
-end, { desc = "Blink: Trigger completion" })
+end, { desc = "Trigger completion" })
 
 vim.keymap.set(
     "n",
@@ -86,14 +98,15 @@ vim.keymap.set(
     { desc = "Go: Insert error check" }
 )
 
+-- vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
 vim.keymap.set(
     "n",
     "<leader>vc",
     "<cmd>Ex " .. vim.fn.stdpath("config") .. "<CR>",
-    { desc = "Config: Open directory" }
+    { desc = "Open nvim config directory" }
 )
 
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Fun: Make it rain" })
+vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Happy Easter" })
 
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")

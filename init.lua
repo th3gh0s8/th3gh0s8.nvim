@@ -51,37 +51,46 @@ autocmd("LspAttach", {
     group = myGroup,
     callback = function(e)
         local opts = { buffer = e.buf }
+
         vim.keymap.set("n", "gd", function()
             vim.lsp.buf.definition()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Go to Definition" }))
+
         vim.keymap.set("n", "K", function()
             vim.lsp.buf.hover()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Hover Documentation" }))
+
         vim.keymap.set("n", "<leader>vws", function()
             vim.lsp.buf.workspace_symbol()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Workspace Symbols" }))
+
         vim.keymap.set("n", "<leader>vd", function()
             vim.diagnostic.open_float()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "Diagnostics: Show Float" }))
+
         vim.keymap.set("n", "<leader>vca", function()
             vim.lsp.buf.code_action()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Code Actions" }))
+
         vim.keymap.set("n", "<leader>vrr", function()
             vim.lsp.buf.references()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Find References" }))
+
         vim.keymap.set("n", "<leader>vrn", function()
             vim.lsp.buf.rename()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Rename Symbol" }))
+
         vim.keymap.set("i", "<C-h>", function()
             vim.lsp.buf.signature_help()
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "LSP: Signature Help" }))
+
         vim.keymap.set("n", "[d", function()
             vim.diagnostic.jump({ count = 1 })
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "Diagnostics: Next" }))
 
         vim.keymap.set("n", "]d", function()
             vim.diagnostic.jump({ count = -1 })
-        end, opts)
+        end, vim.tbl_extend("force", opts, { desc = "Diagnostics: Previous" }))
     end,
 })
 
@@ -92,3 +101,15 @@ vim.g.netrw_browse_split = 0
 vim.opt.compatible = false    -- Equivalent to 'set nocompatible'
 vim.cmd("filetype plugin on") -- Enable filetype plugins
 vim.cmd("syntax on")          -- Enable syntax highlighting
+
+-- vim.opt.clipboard = "unnamedplus"
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+--     desc = "Highlight when yanking (copying) text",
+--     group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+--     callback = function()
+--         vim.highlight.on_yank()
+--     end,
+-- })
