@@ -26,7 +26,7 @@ local augroup = vim.api.nvim_create_augroup
 local myGroup = augroup("th3gh0s8", {})
 
 local autocmd = vim.api.nvim_create_autocmd
---local yank_group = augroup("HighlightYank", {})
+local yank_group = augroup("HighlightYank", {})
 
 -- Reloads a Lua module so subsequent `require()` calls load its updated code.
 -- @param name The module name as passed to `require` (e.g. "my.plugin.module").
@@ -86,10 +86,11 @@ autocmd("LspAttach", {
             vim.lsp.buf.signature_help()
         end, opts)
         vim.keymap.set("n", "[d", function()
-            vim.diagnostic.goto_next()
+            vim.diagnostic.jump({ count = 1 })
         end, opts)
+
         vim.keymap.set("n", "]d", function()
-            vim.diagnostic.goto_prev()
+            vim.diagnostic.jump({ count = -1 })
         end, opts)
     end,
 })
@@ -106,10 +107,10 @@ vim.cmd("syntax on")          -- Enable syntax highlighting
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking (copying) text",
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+--     desc = "Highlight when yanking (copying) text",
+--     group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+--     callback = function()
+--         vim.highlight.on_yank()
+--     end,
+-- })

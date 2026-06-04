@@ -13,10 +13,10 @@ vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>", { desc = "Restart the 
 
 vim.keymap.set("n", "<leader>vwm", function()
     require("vim-with-me").StartVimWithMe()
-end)
+end, { desc = "VimWithMe: Start" })
 vim.keymap.set("n", "<leader>svwm", function()
     require("vim-with-me").StopVimWithMe()
-end)
+end, { desc = "VimWithMe: Stop" })
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Replaces selection with last yanked/copied text" })
@@ -31,8 +31,29 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to black hol
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exits Insert mode to Normal mode" })
 
 vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode" })
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>",
-    { desc = "Open tmux-sessionizer in new tmux window" })
+vim.keymap.set(
+    "n",
+    "<C-f>",
+    "<cmd>silent !tmux neww tmux-sessionizer<CR>",
+    { desc = "Open tmux-sessionizer in new tmux window" }
+)
+
+-- Tmux session keybindings with guard to check if tmux is available
+local function safe_tmux_cmd(session_id)
+    return function()
+        if vim.fn.executable("tmux") == 0 then
+            vim.notify("tmux is not installed or not in PATH", vim.log.levels.WARN)
+            return
+        end
+        vim.fn.system({ "tmux", "neww", "tmux-sessionizer", "-s", tostring(session_id) })
+    end
+end
+
+vim.keymap.set("n", "<M-h>", safe_tmux_cmd(0), { desc = "Tmux: Open session 0" })
+vim.keymap.set("n", "<M-t>", safe_tmux_cmd(1), { desc = "Tmux: Open session 1" })
+vim.keymap.set("n", "<M-n>", safe_tmux_cmd(2), { desc = "Tmux: Open session 2" })
+vim.keymap.set("n", "<M-s>", safe_tmux_cmd(3), { desc = "Tmux: Open session 3" })
+
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format the current buffer" })
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix entry" })
@@ -40,8 +61,12 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix ent
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location list entry" })
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location list entry" })
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = "Replace the word under cursor" })
+vim.keymap.set(
+    "n",
+    "<leader>s",
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "Replace the word under cursor" }
+)
 
 -- Manual completion trigger for blink.cmp using a Windows-friendly key combination
 vim.keymap.set("i", "<C-Space>", function()
@@ -51,9 +76,6 @@ vim.keymap.set("i", "<C-Space>", function()
     end
 end, { desc = "Trigger completion" })
 
-
-
-
 vim.keymap.set(
     "n",
     "<leader>ee",
@@ -62,9 +84,14 @@ vim.keymap.set(
 )
 
 -- vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
-vim.keymap.set("n", "<leader>vc", "<cmd>Ex " .. vim.fn.stdpath("config") .. "<CR>", { desc = "Open nvim config directory" })
+vim.keymap.set(
+    "n",
+    "<leader>vc",
+    "<cmd>Ex " .. vim.fn.stdpath("config") .. "<CR>",
+    { desc = "Open nvim config directory" }
+)
 
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Happy Easter" });
+vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = "Happy Easter" })
 
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
