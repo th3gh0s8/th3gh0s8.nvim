@@ -1,5 +1,5 @@
 return {
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {},
@@ -17,6 +17,6 @@ return {
         })
     end,
     keys = {
-        { "<leader>-", "<cmd>Oil<CR>", desc = "Open Oil file explorer" }
+        { "<leader>_", "<cmd>Oil<CR>", desc = "Open Oil file explorer" },
     },
 }
