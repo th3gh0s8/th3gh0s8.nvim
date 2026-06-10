@@ -41,10 +41,10 @@ return {
             harpoon:list():select(4)
         end, { desc = "Harpoon: File 4" })
 
-        vim.keymap.set("n", "<C-;>", function()
+        vim.keymap.set("n", "<C-'>", function()
             harpoon:list():prev()
         end)
-        vim.keymap.set("n", "<C-'>", function()
+        vim.keymap.set("n", "<C-;>", function()
             harpoon:list():next()
         end)
     end,
