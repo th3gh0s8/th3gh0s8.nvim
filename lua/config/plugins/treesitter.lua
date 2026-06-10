@@ -1,6 +1,6 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    branch = 'master',
+    branch = "master",
     lazy = false,
     build = ":TSUpdate",
     dependencies = {
@@ -8,10 +8,23 @@ return {
     },
     config = function()
         require("nvim-treesitter.configs").setup({
+            ignore_install = {},
             -- A list of parser names, or "all"
             ensure_installed = {
-                "vimdoc", "javascript", "typescript", "c", "lua", "rust",
-                "jsdoc", "bash", "c", "vim", "vimdoc", "markdown", "query", "markdown_inline",
+                "vimdoc",
+                "javascript",
+                "typescript",
+                "c",
+                "lua",
+                "rust",
+                "zig",
+                "go",
+                "jsdoc",
+                "bash",
+                "vim",
+                "markdown",
+                "query",
+                "markdown_inline",
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -22,7 +35,7 @@ return {
             auto_install = true,
 
             indent = {
-                enable = true
+                enable = true,
             },
             autotag = {
                 enable = true,
@@ -32,8 +45,6 @@ return {
                 -- `false` will disable the whole extension
                 enable = true,
 
-
-
                 -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
                 -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
                 -- the name of the parser)
@@ -42,7 +53,7 @@ return {
                 -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
                 disable = function(lang, buf)
                     local max_filesize = 100 * 1024 -- 100 KB
-                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
                     if ok and stats and stats.size > max_filesize then
                         return true
                     end
@@ -66,5 +77,5 @@ return {
         }
 
         vim.treesitter.language.register("templ", "templ")
-    end
+    end,
 }

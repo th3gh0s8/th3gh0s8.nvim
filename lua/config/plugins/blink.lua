@@ -49,6 +49,17 @@ return {
 
         sources = {
             default = { "lsp", "path", "snippets", "buffer" },
+
+            per_filetype = {
+                org = { "lsp", "orgmode", "path", "snippets", "buffer" },
+            },
+            providers = {
+                orgmode = {
+                    name = "Orgmode",
+                    module = "orgmode.org.autocompletion.blink",
+                    fallbacks = { "buffer" },
+                },
+            },
         },
     },
     config = function(_, opts)
