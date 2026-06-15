@@ -28,7 +28,7 @@ return {
                     vim.cmd.Git({ "pull", "--rebase" })
                 end, vim.tbl_extend("force", opts, { desc = "Git: Pull --rebase" }))
 
-                vim.keymap.set("n", "<leader>gp", function()
+                vim.keymap.set("n", "<leader>gu", function()
                     vim.cmd.Git({ "pull" })
                 end, vim.tbl_extend("force", opts, { desc = "Git: Pull " }))
 
@@ -36,14 +36,14 @@ return {
                 -- needed if i did not set the branch up correctly
                 vim.keymap.set(
                     "n",
-                    "<leader>t",
+                    "<leader>gp",
                     ":Git push -u origin ",
                     vim.tbl_extend("force", opts, { desc = "Git: Push -u origin ..." })
                 )
             end,
         })
 
-        vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>", { desc = "Git: Diffget 2" })
-        vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>", { desc = "Git: Diffget 3" })
+        vim.keymap.set("n", "gj", "<cmd>diffget //2<CR>", { desc = "Git: Diffget 2" })
+        vim.keymap.set("n", "gk", "<cmd>diffget //3<CR>", { desc = "Git: Diffget 3" })
     end,
 }
