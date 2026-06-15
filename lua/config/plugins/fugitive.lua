@@ -24,9 +24,13 @@ return {
                     vim.cmd.Git("fetch")
                 end, vim.tbl_extend("force", opts, { desc = "Git: Fetch" }))
 
-                vim.keymap.set("n", "<leader>P", function()
+                vim.keymap.set("n", "<leader>gr", function()
                     vim.cmd.Git({ "pull", "--rebase" })
                 end, vim.tbl_extend("force", opts, { desc = "Git: Pull --rebase" }))
+
+                vim.keymap.set("n", "<leader>gp", function()
+                    vim.cmd.Git({ "pull" })
+                end, vim.tbl_extend("force", opts, { desc = "Git: Pull " }))
 
                 -- NOTE: It allows us to set the branch i am pushing and any tracking
                 -- needed if i did not set the branch up correctly
