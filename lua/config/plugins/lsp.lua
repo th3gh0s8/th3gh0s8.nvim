@@ -16,7 +16,7 @@ return {
         local mason_lspconfig = require("mason-lspconfig")
         local mason_tool_installer = require("mason-tool-installer")
         local lspkind = require("lspkind")
-        
+
         -- Safe blink.cmp initialization
         local capabilities
         local ok, blink_cmp = pcall(require, "blink.cmp")
@@ -26,7 +26,7 @@ return {
             vim.notify("blink.cmp failed to load, using default capabilities", vim.log.levels.WARN)
             capabilities = {}
         end
-        
+
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
@@ -43,6 +43,7 @@ return {
                 "emmet_ls",
                 -- "prismals",
                 "pyright",
+                "zls",
                 "ts_ls",
             },
             handlers = {
@@ -113,15 +114,15 @@ return {
                 if not c then
                     return
                 end
-                
+
                 -- Skip formatting for certain filetypes
                 local skip_format_filetypes = { "markdown", "text" }
                 local buf_ft = vim.api.nvim_buf_get_option(args.buf, "filetype")
-                
+
                 if vim.tbl_contains(skip_format_filetypes, buf_ft) then
                     return
                 end
-                
+
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     buffer = args.buf,
                     callback = function()
@@ -130,7 +131,7 @@ return {
                         if file_size > 100000 then
                             return
                         end
-                        
+
                         vim.lsp.buf.format({ bufnr = args.buf, id = c.id })
                     end,
                 })
@@ -169,7 +170,7 @@ return {
                 prefix = "",
             },
         })
-        
+
         mason_tool_installer.setup({
             ensure_installed = {
                 "prettier",
