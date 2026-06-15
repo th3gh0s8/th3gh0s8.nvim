@@ -20,6 +20,10 @@ return {
                     vim.cmd.Git("push")
                 end, vim.tbl_extend("force", opts, { desc = "Git: Push" }))
 
+                vim.keymap.set("n", "<leader>gf", function()
+                    vim.cmd.Git("fetch")
+                end, vim.tbl_extend("force", opts, { desc = "Git: Fetch" }))
+
                 vim.keymap.set("n", "<leader>P", function()
                     vim.cmd.Git({ "pull", "--rebase" })
                 end, vim.tbl_extend("force", opts, { desc = "Git: Pull --rebase" }))
