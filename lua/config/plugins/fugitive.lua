@@ -22,7 +22,7 @@ return {
 
                 vim.keymap.set("n", "<leader>gf", function()
                     vim.cmd.Git("fetch")
-                end, vim.tbl_extend("force", opts, { desc = "Git: Fetch" }))
+                end, vim.tbl_extend("force", opts, { desc = "Git: Fetch origin " }))
 
                 vim.keymap.set("n", "<leader>gr", function()
                     vim.cmd.Git({ "pull", "--rebase" })

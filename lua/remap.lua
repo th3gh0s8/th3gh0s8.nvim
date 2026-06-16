@@ -72,9 +72,10 @@ end
 vim.keymap.set(
     "n",
     "<leader>s",
-    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    { desc = "Replace the word under cursor" }
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gcI<Left><Left><Left><Left>]],
+    { desc = "Global: Replace the word under cursor" }
 )
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make this and Executable" })
 
 -- Manual completion trigger for blink.cmp using a Windows-friendly key combination
 vim.keymap.set("i", "<C-Space>", function()
