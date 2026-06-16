@@ -56,12 +56,7 @@ vim.keymap.set("n", "<M-s>", safe_tmux_cmd(3), { desc = "Tmux: Open session 3" }
 
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format the current buffer" })
 
-vim.keymap.set(
-    "n",
-    "<C-f>",
-    "<cmd>silent !tmux neww tmux-sessionizer<CR>",
-    { desc = "Tmux: Open sessionizer" }
-)
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "Tmux: Open sessionizer" })
 
 -- Tmux session keybindings with guard to check if tmux is available
 local function safe_tmux_cmd(session_id)
@@ -91,12 +86,7 @@ vim.keymap.set("i", "<C-Space>", function()
     end
 end, { desc = "Trigger completion" })
 
-vim.keymap.set(
-    "n",
-    "<leader>ee",
-    "oif err != nil {<CR>}<Esc>Oreturn err<Esc>",
-    { desc = "Go: Insert error check" }
-)
+vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>", { desc = "Go: Insert error check" })
 
 -- vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
 vim.keymap.set(
@@ -136,3 +126,7 @@ vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Tab: Move buffe
 
 vim.keymap.set("n", "<leader>ts", "<cmd>PlenaryBustedFile %<CR>", { desc = "Plenary: Run test" })
 
+vim.keymap.set("", "<Up>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("", "<Down>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("", "<Left>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("", "<Right>", "<Nop>", { noremap = true, silent = true })
