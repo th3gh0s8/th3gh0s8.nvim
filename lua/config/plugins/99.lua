@@ -12,13 +12,20 @@ return {
         local cwd = vim.uv.cwd()
         local basename = vim.fs.basename(cwd)
 
-        -- 1. Deep copy the existing Gemini provider so we inherit all the
-        -- built-in logic for attaching files and parsing markdown rules.
+        -- 1. Deep copy the existing Gemini provider.
         local antigravity_provider = vim.deepcopy(_99.Providers.GeminiCLIProvider)
 
-        -- 2. Override the underlying shell command
-        -- This forces the plugin to shell out to `agy` instead of the dead `gemini` command
-        antigravity_provider.cmd = "agy.cmd"
+        -- 2. Override command builder with correct binary + flags.
+        antigravity_provider._build_command = function(_, query, context)
+            return {
+                "agy",
+                "--dangerously-skip-permissions",
+                "--model",
+                context.model,
+                "--print",
+                query,
+            }
+        end
         antigravity_provider.name = "AntigravityCLI"
 
         _99.setup({
